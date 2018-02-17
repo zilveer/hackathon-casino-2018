@@ -8,6 +8,10 @@ class Wallet extends Model
 {
     use Concerns\HasUuid;
 
+    protected $fillable = [
+        'name',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

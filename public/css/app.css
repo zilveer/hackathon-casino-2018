@@ -10005,3 +10005,8 @@ body {
   padding-top: 1em;
 }
 
+#qrcode img {
+  margin: auto;
+  max-width: 100%;
+}
+

@@ -20,38 +20,29 @@ Route::view('/qrcode', 'qrcode');
 // ------------------------------------------------------------------------
 // User Routes
 
+Route::get('/users', function () {
+    return User::with('wallets.coins.currency')->get();
+});
+
 Route::prefix('/user/{user}')->group(function () {
 
     Route::get('/wallets', function (User $user) {
-        // lists user's wallets
-        $wallets = $user->wallets()->get();
-        return view('wallet.list', compact('wallets', 'user'));
+        $wallets = $user->wallets;
+
+        return view('wallet.index', compact('wallets', 'user'));
     })->name('user.wallets');
 
     Route::prefix('/wallet/{wallet}')->group(function () {
         Route::get('/', function (User $user, Wallet $wallet) {
-            // shows wallet's coins sum, grouped by currency
-            // shows 'send' button
-            // shows 'review' button
-            return view('wallet.view', compact('wallet'));
+            return view('wallet.view', compact('user', 'wallet'));
         })->name('user.wallet');
 
+        Route::get('/receive', function (User $user, Wallet $wallet) {
+            return view('wallet.receive', compact('user', 'wallet'));
+        })->name('wallet.receive');
+
+        Route::get('/send', function (User $user, Wallet $wallet) {
+            return view('wallet.send', compact('user', 'wallet'));
+        })->name('wallet.send');
     });
-
-    Route::get('/recieve', function () {
-        // shows current wallet's QR code
-        // shows wallet's coins sum, grouped by currency
-        // update amount every .5 seconds
-        // play a sound when the amount increases, then show a 'done' button
-        return view('wallet.receive');
-    })->name('wallet.receive');
-
-    Route::get('/send', function () {
-        // scan QR code
-        // when QR is scanned:
-        // + select wallet's coins to send
-        // + input number of coins to send
-        // post to /send
-        return view('wallet.send');
-    })->name('wallet.send');
 });

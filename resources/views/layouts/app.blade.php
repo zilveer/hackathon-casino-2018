@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="stylesheet" href="{{ asset('css/app.css', env('REDIRECT_HTTPS', true)) }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
 </head>
@@ -50,6 +52,8 @@
     </main>
 
     <script src="{{ asset('js/app.js', env('REDIRECT_HTTPS')) }}"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
     @yield('scripts')
 </body>
 </html>
