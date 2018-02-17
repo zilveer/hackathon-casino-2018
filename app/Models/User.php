@@ -17,12 +17,12 @@ class User extends Model
         return $this->hasMany(Wallet::class);
     }
 
-    public function getTokensCountAttribute()
+    public function getCoinsCount()
     {
         $count = 0;
 
         foreach ($this->wallets as $wallet) {
-            $count += count($wallet->tokens);
+            $count += count($wallet->coins);
         }
 
         return $count;

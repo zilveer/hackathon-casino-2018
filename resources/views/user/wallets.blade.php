@@ -11,14 +11,14 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Tokens</th>
+                <th>Coins</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($wallets as $wallet)
                 <tr>
                     <td><a href="{{ route('wallet.qrcode', compact('wallet')) }}">{{ $wallet->id }}</a></td>
-                    <td><a href="{{ route('user.tokens', compact('user', 'wallet')) }}">{{ count($wallet->tokens) }}</a></td>
+                    <td><a href="{{ route('user.coins', compact('user', 'wallet')) }}">{{ count($wallet->coins) }}</a></td>
                 </tr>
             @endforeach
         </tbody>

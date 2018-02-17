@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Users</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('contents')
+
     <h1>Users</h1>
 
     <table>
@@ -29,5 +26,5 @@
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
+
+@endsection

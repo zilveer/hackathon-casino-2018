@@ -20,8 +20,11 @@ Route::get('/', function () {
 
 Route::view('/scan', 'scan');
 
+// ------------------------------------------------------------------------
+// Users
+
 Route::get('users', function () {
-    $users = User::with('wallets', 'wallets.tokens')->get();
+    $users = User::with('wallets.coins.currency')->get();
 
     return view('user.index', compact('users'));
 })->name('user.index');
@@ -37,8 +40,8 @@ Route::get('/wallet/{wallet}/qrcode', function (Wallet $wallet) {
     return view('wallet.qrcode', compact('wallet'));
 })->name('wallet.qrcode');
 
-Route::get('/user/{user}/wallet/{wallet}/tokens', function (User $user, Wallet $wallet) {
-    $tokens = $wallet->tokens;
+Route::get('/user/{user}/wallet/{wallet}', function (User $user, Wallet $wallet) {
+    $coins = $wallet->coins;
 
-    return view('user.tokens', compact('user', 'wallet', 'tokens'));
-})->name('user.tokens');
+    return view('user.coins', compact('user', 'wallet', 'coins'));
+})->name('user.coins');
