@@ -1,9 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Payer')
+@section('title', 'Receive')
 
 @section('contents')
-    <div class="text-center">
+    <style>
+        #qrcode img {
+            margin: auto;
+        }
+    </style>
+    <div id="qrcode"></div>
+@endsection
 
-    </div>
+@section('scripts')
+    <script type="text/javascript">
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: "{{ Uuid::generate() }}",
+            width: 128,
+            height: 128,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+    </script>
 @endsection

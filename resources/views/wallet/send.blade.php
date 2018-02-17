@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Acheter')
+@section('title', 'Send')
 
 @section('contents')
     <div class="text-center">
-        <video id="preview"></video>
+        <div class="embed-responsive embed-responsive-1by1">
+            <video class="embed-responsive-item" id="preview"></video>
+        </div>
     </div>
 @endsection
 
