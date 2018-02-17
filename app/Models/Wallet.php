@@ -7,4 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Wallet extends Model
 {
     use Concerns\HasUuid;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function tokens()
+    {
+        return $this->hasMany(Token::class);
+    }
 }
