@@ -13,8 +13,8 @@ class Wallet extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tokens()
+    public function coins()
     {
-        return $this->hasMany(Token::class);
+        return $this->hasMany(Coin::class);
     }
 }
