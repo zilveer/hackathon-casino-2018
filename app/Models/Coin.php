@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Contract;
 
 class Coin extends Model
 {
@@ -33,8 +34,20 @@ class Coin extends Model
 
     public function convert(Currency $currency)
     {
-        // find the contract
-        // convert the currency
-        // write the transaction
+        try {
+            $rate = Contract::query()
+                ->whereHas('fromCurrency', function ($query) {
+                    $query->where('id', $this->currency->id);
+                })
+                ->whereHas('toCurrency', function ($query) use ($currency) {
+                    $query->where('id', $currency->id);
+                })
+                ->firstOrFail()
+                ->change_rate;
+        } catch (ModelNotFoundException $e) {
+            $rate = 1;
+        }
+
+        return $this->amount * $rate;
     }
 }
