@@ -10,7 +10,7 @@
 
 <script type="text/javascript">
     var qrcode = new QRCode(document.getElementById("qrcode"), {
-        text: "{{ $wallet->id }}",
+        text: "{{ Uuid::generate() }}",
         width: 128,
         height: 128,
         colorDark : "#000000",

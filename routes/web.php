@@ -3,45 +3,49 @@
 use App\Models\User;
 use App\Models\Wallet;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+// ------------------------------------------------------------------------
+// Landing page
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+// ------------------------------------------------------------------------
+// Demo Routes
+
 Route::view('/scan', 'scan');
 
+Route::view('/qrcode', 'qrcode');
+
 // ------------------------------------------------------------------------
-// Users
+// User Routes
 
-Route::get('users', function () {
-    $users = User::with('wallets.coins.currency')->get();
+Route::prefix('/user/{user}')->group(function () {
 
-    return view('user.index', compact('users'));
-})->name('user.index');
+    Route::get('/wallets', function () {
+        // lists user's wallets
+    });
 
-Route::get('/user/{user}/wallets', function (User $user) {
-    $wallets = $user->wallets;
+    Route::prefix('/wallet/{wallet}')->group(function () {
+        Route::get('/', function () {
+            // shows wallet's coins sum, grouped by currency
+            // shows 'send' button
+            // shows 'review' button
+        });
 
-    return view('user.wallets', compact('user', 'wallets'));
-})->name('user.wallets');
+        Route::get('/recieve', function () {
+            // shows current wallet's QR code
+            // shows wallet's coins sum, grouped by currency
+            // update amount every .5 seconds
+            // play a sound when the amount increases, then show a 'done' button
+        });
 
-Route::get('/wallet/{wallet}/qrcode', function (Wallet $wallet) {
-
-    return view('wallet.qrcode', compact('wallet'));
-})->name('wallet.qrcode');
-
-Route::get('/user/{user}/wallet/{wallet}', function (User $user, Wallet $wallet) {
-    $coins = $wallet->coins;
-
-    return view('user.coins', compact('user', 'wallet', 'coins'));
-})->name('user.coins');
+        Route::get('/send', function () {
+            // scan QR code
+            // when QR is scanned:
+            // + select wallet's coins to send
+            // + input number of coins to send
+            // post to /send
+        });
+    });
+});
