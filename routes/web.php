@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\User;
+use App\Models\Wallet;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +19,21 @@ Route::get('/', function () {
 });
 
 Route::view('/scan', 'scan');
+
+Route::get('users', function () {
+    $users = User::with('wallets', 'wallets.tokens')->get();
+
+    return view('user.index', compact('users'));
+})->name('user.index');
+
+Route::get('/user/{user}/wallets', function (User $user) {
+    $wallets = $user->wallets;
+
+    return view('user.wallets', compact('user', 'wallets'));
+})->name('user.wallets');
+
+Route::get('/user/{user}/wallet/{wallet}/tokens', function (User $user, Wallet $wallet) {
+    $tokens = $wallet->tokens;
+
+    return view('user.tokens', compact('user', 'wallet', 'tokens'));
+})->name('user.tokens');
