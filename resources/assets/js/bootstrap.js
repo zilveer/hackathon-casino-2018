@@ -56,3 +56,4 @@ if (token) {
 // });
 
 window.Instascan = require('instascan');
+window.QRCode = require('davidshimjs-qrcodejs');

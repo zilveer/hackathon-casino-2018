@@ -17,7 +17,7 @@
         <tbody>
             @foreach ($wallets as $wallet)
                 <tr>
-                    <td>{{ $wallet->id }}</td>
+                    <td><a href="{{ route('wallet.qrcode', compact('wallet')) }}">{{ $wallet->id }}</a></td>
                     <td><a href="{{ route('user.tokens', compact('user', 'wallet')) }}">{{ count($wallet->tokens) }}</a></td>
                 </tr>
             @endforeach

@@ -32,6 +32,11 @@ Route::get('/user/{user}/wallets', function (User $user) {
     return view('user.wallets', compact('user', 'wallets'));
 })->name('user.wallets');
 
+Route::get('/wallet/{wallet}/qrcode', function (Wallet $wallet) {
+
+    return view('wallet.qrcode', compact('wallet'));
+})->name('wallet.qrcode');
+
 Route::get('/user/{user}/wallet/{wallet}/tokens', function (User $user, Wallet $wallet) {
     $tokens = $wallet->tokens;
 
