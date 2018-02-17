@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Instascan</title>
-    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/app.js', env('REDIRECT_HTTPS', true)) }}"></script>
   </head>
   <body>
     <h1>Scan</h1>
