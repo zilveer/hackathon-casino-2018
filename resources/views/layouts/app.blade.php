@@ -27,6 +27,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Payer</a>
                     </li>
+
                     {{--
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
@@ -43,11 +44,12 @@
     </nav>
 
     <main role="main" class="container">
+        <h1 class="text-center font-weight-bold text-uppercase p-4">@yield('title')</h1>
         @section("contents")
-            <h1>Welcome, motherfuckers</h1>
         @show
     </main>
 
     <script src="{{ asset('js/app.js', env('REDIRECT_HTTPS')) }}"></script>
+    @yield('scripts')
 </body>
 </html>
