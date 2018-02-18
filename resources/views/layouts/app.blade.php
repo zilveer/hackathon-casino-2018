@@ -5,50 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="stylesheet" href="{{ asset('css/app.css', env('REDIRECT_HTTPS', true)) }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <link rel="stylesheet" href="{{ asset('css/app.css', env('REDIRECT_HTTPS', true)) }}">
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">{{ config('app.name', 'Laravel') }}</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Accueil</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Coins</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Payer</a>
-                    </li>
-
-                    {{--
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    --}}
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <main role="main" class="container">
-        <h1 class="text-center font-weight-bold text-uppercase p-4">@yield('title')</h1>
-        @section("contents")
-        @show
+        <header>
+            @yield("header")
+        </header>
+
+        <section id="content">
+            @yield("content")
+        </section>
+
+        @if (isset($user))
+            <footer class="text-center py-3 fixed-bottom">
+                <div class="container">
+                    @section('footer')
+                        <div class="row no-gutters">
+                            <div class="col-4 pr-2">
+                                <a href="{{ route('user.send', $user) }}" class="btn btn-default btn-lg btn-block {{ Route::currentRouteName() == 'user.send' ? 'active' : '' }}">Payer</a>
+                            </div>
+                            <div class="col-4">
+                                <a href="{{ route('user.view', $user) }}" class="btn btn-default btn-lg btn-block {{ Route::currentRouteName() == 'user.view' ? 'active' : '' }}">Details</a>
+                            </div>
+                            <div class="col-4 pl-2">
+                                <a href="{{ route('user.receive', $user) }}" class="btn btn-default btn-lg btn-block {{ Route::currentRouteName() == 'user.receive' ? 'active' : '' }}">Recevoir</a>
+                            </div>
+                        </div>
+                    @show
+                </div>
+            </footer>
+        @endif
     </main>
 
     <script src="{{ asset('js/app.js', env('REDIRECT_HTTPS')) }}"></script>

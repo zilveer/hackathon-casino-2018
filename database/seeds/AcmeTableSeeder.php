@@ -16,17 +16,10 @@ class AcmeTableSeeder extends Seeder
      */
     public function run()
     {
-        $user   = factory(User::class)->create();
-
-        $wallet = factory(Wallet::class)->make();
-        $wallet->user()->associate($user)->save();
-
-        $currency = factory(Currency::class)->create();
-
-        $coins = factory(Coin::class, 10)->make()->each(function ($coin) use ($currency, $wallet) {
-            $coin->currency()->associate($currency);
-            $coin->wallet()->associate($wallet);
-            $coin->save();
+        $user = factory(User::class, 10)->create()->each(function ($user) {
+            factory(Token::class, rand(10, 50))->make()->each(function ($token) use ($user) {
+                $user->tokens()->save($token);
+            });
         });
     }
 }

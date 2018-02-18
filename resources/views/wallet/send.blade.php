@@ -1,29 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Acheter')
+@section('title', 'Envoyer')
 
 @section('contents')
-    <div class="text-center">
-        <div class="embed-responsive embed-responsive-1by1">
-            <video class="embed-responsive-item" id="preview"></video>
-        </div>
+    <div class="card mb-3">
+        <p class="card-text text-center bg-light">
+            Pour envoyer des devises, scannez le <b>QR code</b> de la personne à qui vous voulez les envoyer
+        </p>
     </div>
+
+
+    <a href="{{ route('user.wallet', compact('user', 'wallet')) }}" class="btn btn-secondary btn-lg btn-block">Retour</a>
 @endsection
 
-@section('scripts')
-    <script type="text/javascript">
-        let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-        scanner.addListener('scan', function (content) {
-            console.log(content);
-        });
-        Instascan.Camera.getCameras().then(function (cameras) {
-            if (cameras.length > 0) {
-                scanner.start(cameras[0]);
-            } else {
-                console.error('No cameras found.');
-            }
-        }).catch(function (e) {
-            console.error(e);
-        });
-    </script>
-@endsection

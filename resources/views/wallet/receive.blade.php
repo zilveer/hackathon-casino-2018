@@ -20,7 +20,7 @@
 @section('scripts')
     <script type="text/javascript">
         var qrcode = new QRCode(document.getElementById("qrcode"), {
-            text: "{{ Uuid::generate() }}",
+            text: "{{ route('wallet.send', compact('user', 'wallet')) }}?to={{ $wallet->id }}",
             width: 512,
             height: 512,
             colorDark : "#000000",

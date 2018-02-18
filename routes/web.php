@@ -1,7 +1,8 @@
 <?php
 
+use App\Models\Token;
 use App\Models\User;
-use App\Models\Wallet;
+use Illuminate\Http\Request;
 
 // ------------------------------------------------------------------------
 // Landing page
@@ -21,28 +22,30 @@ Route::view('/qrcode', 'qrcode');
 // User Routes
 
 Route::get('/users', function () {
-    return User::with('wallets.coins.currency')->get();
-});
+    return User::with('tokens')->get();
+})->name('user.index');
 
-Route::prefix('/user/{user}')->group(function () {
-
-    Route::get('/wallets', function (User $user) {
-        $wallets = $user->wallets;
-
-        return view('wallet.index', compact('wallets', 'user'));
-    })->name('user.wallets');
-
-    Route::prefix('/wallet/{wallet}')->group(function () {
-        Route::get('/', function (User $user, Wallet $wallet) {
-            return view('wallet.view', compact('user', 'wallet'));
-        })->name('user.wallet');
-
-        Route::get('/receive', function (User $user, Wallet $wallet) {
-            return view('wallet.receive', compact('user', 'wallet'));
-        })->name('wallet.receive');
-
-        Route::get('/send', function (User $user, Wallet $wallet) {
-            return view('wallet.send', compact('user', 'wallet'));
-        })->name('wallet.send');
+Route::get('/user/create', function () {
+    $user = factory(User::class)->create();
+    $token = factory(Token::class, 10)->make()->each(function ($token) use ($user) {
+        $user->tokens()->save($token);
     });
-});
+
+    return redirect()->route('user.view', $user);
+})->name('user.create');
+
+Route::get('/user/{user}', function (User $user) {
+    return view('user.view', compact('user'));
+})->name('user.view');
+
+Route::get('/user/{user}/send', function (User $user) {
+    return view('user.send', compact('user'));
+})->name('user.send');
+
+Route::get('/user/{user}/receive', function (User $user) {
+    return view('user.receive', compact('user'));
+})->name('user.receive');
+
+Route::get('/user/{user}/transfer', function (User $user, Request $request) {
+    //
+})->name('user.transfer');

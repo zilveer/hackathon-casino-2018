@@ -12,19 +12,8 @@ class User extends Model
         'name','email',
     ];
 
-    public function wallets()
+    public function tokens()
     {
-        return $this->hasMany(Wallet::class);
-    }
-
-    public function getCoinsCountAttribute()
-    {
-        $count = 0;
-
-        foreach ($this->wallets as $wallet) {
-            $count += $wallet->coins->sum('amount');
-        }
-
-        return $count;
+        return $this->hasMany(Token::class);
     }
 }
