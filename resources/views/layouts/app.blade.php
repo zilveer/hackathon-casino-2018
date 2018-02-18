@@ -25,13 +25,13 @@
                     @section('footer')
                         <div class="row no-gutters">
                             <div class="col-4 pr-2">
-                                <a href="{{ route('user.send', $user) }}" class="btn btn-default btn-lg btn-block {{ Route::currentRouteName() == 'user.send' ? 'active' : '' }}">Payer</a>
+                                <a href="{{ route('user.receive', $user) }}" class="btn btn-default btn-lg btn-block {{ Route::currentRouteName() == 'user.receive' ? 'active' : '' }}">Recevoir</a>
                             </div>
                             <div class="col-4">
                                 <a href="{{ route('user.view', $user) }}" class="btn btn-default btn-lg btn-block {{ Route::currentRouteName() == 'user.view' ? 'active' : '' }}">Details</a>
                             </div>
                             <div class="col-4 pl-2">
-                                <a href="{{ route('user.receive', $user) }}" class="btn btn-default btn-lg btn-block {{ Route::currentRouteName() == 'user.receive' ? 'active' : '' }}">Recevoir</a>
+                                <a href="{{ route('user.send', $user) }}" class="btn btn-default btn-lg btn-block {{ Route::currentRouteName() == 'user.send' ? 'active' : '' }}">Payer</a>
                             </div>
                         </div>
                     @show
@@ -40,8 +40,7 @@
         @endif
     </main>
 
-    <script src="{{ asset('js/app.js', env('REDIRECT_HTTPS')) }}"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="{{ asset('js/app.js', env('REDIRECT_HTTPS', true)) }}"></script>
 
     @yield('scripts')
 </body>

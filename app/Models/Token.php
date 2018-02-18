@@ -9,11 +9,11 @@ class Token extends Model
     use Concerns\HasUuid;
 
     public static $brands = [
-        'Casino', 'Franprix', 'Monoprix', 'Leader Price',
+        'Casino', 'Franprix', 'Starbucks', 'Planet Sushi',
     ];
 
     protected $fillable = [
-        'data',
+        'data', 'brand',
     ];
 
     protected $casts = [

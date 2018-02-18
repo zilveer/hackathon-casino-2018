@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <h1 class="text-center py-5">Payer <u id="tokens" contenteditable class="font-weight-bold">10</u> jeton</h1>
+    <h1 class="text-center py-5">Payer <u id="tokens" contenteditable class="font-weight-bold">10</u> jetons</h1>
 @endsection
 
 @section('content')

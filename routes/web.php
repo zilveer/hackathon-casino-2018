@@ -25,13 +25,16 @@ Route::get('/users', function () {
     return User::with('tokens')->get();
 })->name('user.index');
 
-Route::get('/user/create', function () {
-    $user = factory(User::class)->create();
-    $token = factory(Token::class, 10)->make()->each(function ($token) use ($user) {
-        $user->tokens()->save($token);
-    });
+Route::get('/user/create', function (Request $request) {
+    $user = User::create($request->only('name', 'email'));
 
-    return redirect()->route('user.view', $user);
+    foreach (Token::$brands as $brand) {
+        foreach (range(1, 5) as $i) {
+            $user->tokens()->create(compact('brand'));
+        }
+    }
+
+    return redirect()->route('user.receive', $user);
 })->name('user.create');
 
 Route::get('/user/{user}', function (User $user) {
@@ -47,5 +50,12 @@ Route::get('/user/{user}/receive', function (User $user) {
 })->name('user.receive');
 
 Route::get('/user/{user}/transfer', function (User $user, Request $request) {
-    //
+    $from = User::findOrFail($request->from);
+
+    $transfered = 0;
+    foreach ($from->tokens()->take($request->tokens)->get() as $token) {
+        $transfered += $token->user()->associate($user)->save();
+    }
+
+    return redirect()->route('user.view', $from)->with(compact('transfered'));
 })->name('user.transfer');

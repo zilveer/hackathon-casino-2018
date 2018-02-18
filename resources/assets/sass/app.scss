@@ -8,23 +8,25 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-html, body {
-    height: 100%;
-}
-
 body {
-    max-height: 100%;
-    overflow-y: hidden;
     font-family: 'Quicksand', sans-serif;
     color: white;
     margin: 0;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: scroll;
     background: linear-gradient(45deg, rgb(99, 45, 196), rgb(22, 135, 237));
 }
 
 h1 {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, .8);
+}
+
+section {
+    min-height: 800px;
+}
+
+footer .btn {
+    background: #1F5BB7 !important;
 }
 
 .btn.btn-default {
@@ -35,6 +37,7 @@ h1 {
     padding-left: 0;
     padding-right: 0;
     text-align: center;
+    background: transparent;
 }
 
 .btn.active {
